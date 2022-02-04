@@ -1,91 +1,74 @@
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.StringTokenizer;
  
-public class Main {
+ 
+public class Main {	
+	
 	public static void main(String[] args) throws IOException {
- 
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
- 
-		ArrayDeque<Integer> dq = new ArrayDeque<Integer>();
-		StringBuilder sb = new StringBuilder();
- 
 		int N = Integer.parseInt(br.readLine());
- 
-		for (int i = 0; i < N; i++) {
- 
-			String[] s = br.readLine().split(" ");
- 
-			// 첫 번째 단어에 대한 switch-case 
-			switch (s[0]) {
- 
-				case "push_front": {
-					dq.addFirst(Integer.parseInt(s[1]));
-					break;
-				}
+		
+		Deque<Integer> deque = new ArrayDeque<>();
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i=0; i<N; i++) {
+			
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			String cmd = st.nextToken();
+			
+			switch(cmd) {
+			
+			case "push_front":
+				int x = Integer.parseInt(st.nextToken());
+				deque.offerFirst(x);
+				break;
 				
-				case "push_back": {
-					dq.addLast(Integer.parseInt(s[1]));
-					break;
-				}
- 
-				case "pop_front": {
-					if (dq.isEmpty()) {
-						sb.append(-1).append('\n');
-					} 
-					else {
-						sb.append(dq.pollFirst()).append('\n');
-					}
-					break;
-				}
- 
-				case "pop_back": {
-					if (dq.isEmpty()) {
-						sb.append(-1).append('\n');
-					} 
-					else {
-						sb.append(dq.pollLast()).append('\n');
-					}
-					break;
-				}
- 
-				case "size": {
-					sb.append(dq.size()).append('\n');
-					break;
-				}
- 
-				case "empty": {
-					if (dq.isEmpty()) {
-						sb.append(1).append('\n');
-					} 
-					else {
-						sb.append(0).append('\n');
-					}
-					break;
-				}
- 
-				case "front": {
-					if (dq.isEmpty()) {
-						sb.append(-1).append('\n');
-					} 
-					else {
-						sb.append(dq.peekFirst()).append('\n');
-					}
-					break;
-				}
- 
-				case "back": {
-					if (dq.isEmpty()) {
-						sb.append(-1).append('\n');
-					} 
-					else {
-						sb.append(dq.peekLast()).append('\n');
-					}
-					break;
-				}
+			case "push_back":
+				int y = Integer.parseInt(st.nextToken());
+				deque.offerLast(y);
+				break;
+				
+			case "pop_front":
+				if(deque.isEmpty()) sb.append("-1\n");
+				else sb.append(deque.pollFirst()).append('\n');
+				break;
+				
+			case "pop_back":
+				if(deque.isEmpty()) sb.append("-1\n");
+				else sb.append(deque.pollLast()).append('\n');
+				break;
+				
+			case "size":
+				sb.append(deque.size()).append('\n');
+				break;
+				
+			case "empty":
+				if(deque.isEmpty()) sb.append("1\n");
+				else sb.append("0\n");
+				break;
+				
+			case "front":
+				if(deque.isEmpty()) sb.append("-1\n");
+				else sb.append(deque.peekFirst()).append('\n');
+				break;
+				
+			case "back":
+				if(deque.isEmpty()) sb.append("-1\n");
+				else sb.append(deque.peekLast()).append('\n');
+				break;
+				
 			}
+			
 		}
+		
 		System.out.println(sb);
-	}
+		
+	}	
+	
+ 
 }
