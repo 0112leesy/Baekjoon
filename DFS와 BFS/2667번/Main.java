@@ -1,66 +1,62 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
-    static int map[][];
-    static boolean visit[][];
-    static int N; 
-    static int count = 1;
-    static int x[] = {-1, 1, 0, 0};
-    static int y[] = {0, 0, -1, 1}; 
+	
+	static int arr[][];
+	static int dx[] = {-1, 0, 1, 0}, dy[] = {0, -1, 0, 1};
+	static boolean visited[][];
+	static int N, cnt;
 
-    public static void dfs(int i, int j) {
-        map[i][j] = count;
-        visit[i][j] = true;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		arr = new int[N][N];
+		visited = new boolean[N][N];
+		
+		for(int i=0; i<N; i++) {
+			String str = br.readLine();
+			for(int j=0; j<N; j++) {
+				arr[i][j] = str.charAt(j) - '0';
+			}
+		}
+		
+		ArrayList<Integer> ans = new ArrayList<>();
+		
+		for(int i=0; i<N; i++) {
+			for(int j=0; j<N; j++) {
+				if(arr[i][j] == 1 && !visited[i][j]) {
+					cnt = 0;
+					dfs(i, j);
+					ans.add(cnt);
+				}
+			}
+		}
+		
+		Collections.sort(ans);
+		StringBuilder sb = new StringBuilder();
+		sb.append(ans.size()).append('\n');
+		for(int n : ans) sb.append(n).append('\n');
+		System.out.println(sb);
+		
+		
+	}
+	
+	static void dfs(int x, int y) {
+		visited[x][y] = true;
+		cnt ++;
+		
+		for(int i=0; i<4; i++) {
+			int newx = x + dx[i];
+			int newy = y + dy[i];
+			
+			if(newx < 0 || newx >= N || newy < 0 || newy >= N) continue;
+			if(arr[newx][newy] == 1 && !visited[newx][newy]) dfs(newx, newy);
+		}
+		
+	}
 
-        for(int k=0; k<x.length; k++) {
-            int ix = i + x[k];
-            int jy = j + y[k];
-
-            if(ix >= 0 && ix < N && jy >= 0 && jy < N) {
-                if(map[ix][jy] == 1 && !visit[ix][jy]) {
-                    dfs(ix, jy);
-                }
-            }
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-
-        map = new int[N][N];
-        for(int i=0; i<N; i++) {
-            String[] input = br.readLine().split("");
-            for(int j=0; j<N; j++) {
-                map[i][j] = Integer.parseInt(input[j]);
-            }
-        }
-
-        visit = new boolean[N][N];
-        for(int i=0; i<N; i++) {
-            for(int j=0; j<N; j++) {
-                if(map[i][j] == 1 && !visit[i][j]) {
-                    dfs(i, j); 
-                    count++; 
-                }
-            }
-        }
-
-        System.out.println(count-1);
-        int result[] = new int[count];
-        for(int i=0; i<N; i++) {
-            for(int j=0; j<N; j++) {
-                if(map[i][j] != 0)
-                    result[map[i][j]]++;
-            }
-        }
-
-        Arrays.sort(result);
-        for(int i=1; i<result.length; i++) {
-            System.out.println(result[i]);
-        }
-    }
 }
