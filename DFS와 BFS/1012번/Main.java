@@ -1,73 +1,63 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 	
-	static int m;
-	static int n;
-	static int k; 
-	static int[][] maps;
-	static boolean[][] visited;
-	static int result; 
-	
-	static int[] dx = {0, 1, 0, -1};
-	static int[] dy = {-1, 0, 1, 0}; 
+	static int arr[][];
+	static int dx[] = {-1, 0, 1, 0}, dy[] = {0, -1, 0, 1};
+	static boolean visited[][];
+	static int N, M, K;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String str = br.readLine();
-		int t = Integer.parseInt(str);
+		int T = Integer.parseInt(br.readLine());
 		
-		for(int i=0; i<t; i++) {
-			str = br.readLine();
-			m = Integer.parseInt(str.split(" ")[0]);
-			n = Integer.parseInt(str.split(" ")[1]);
-			k = Integer.parseInt(str.split(" ")[2]);
+		StringBuilder sb = new StringBuilder();
+		while(T-- > 0) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			M = Integer.parseInt(st.nextToken());
+			N = Integer.parseInt(st.nextToken());
+			K = Integer.parseInt(st.nextToken());
 			
-			maps = new int[n][m];
-			visited = new boolean[n][m];
-			result = 0;
-
-			int x;
-			int y;
-			for(int j=0; j<k; j++) {
-				str = br.readLine();
-				x = Integer.parseInt(str.split(" ")[0]);
-				y = Integer.parseInt(str.split(" ")[1]);
-				maps[y][x] = 1;
+			arr = new int[N][M];
+			visited = new boolean[N][M];
+			
+			for(int i=0; i<K; i++) {
+				st = new StringTokenizer(br.readLine());
+				int y = Integer.parseInt(st.nextToken());
+				int x = Integer.parseInt(st.nextToken());
+				arr[x][y] = 1;
 			}
 			
-			for(int a=0; a<n; a++) {
-				for(int b=0; b<m; b++) {
-					if(maps[a][b]==1 && !visited[a][b]) {
-						result++;
-						visited[a][b] = true;
-						dfs(a, b);
+			int ans = 0;
+			for(int i=0; i<N; i++) {
+				for(int j=0; j<M; j++) {
+					if(arr[i][j] == 1 && !visited[i][j]) {
+						dfs(i, j);
+						ans++;
 					}
 				}
 			}
-
-			System.out.println(result);
+			sb.append(ans).append('\n');	
 		}
+		
+		System.out.println(sb);
+		
 	}
 	
-	static void dfs(int y, int x) {
-		int nx, ny;
+	static void dfs(int x, int y) {
+		visited[x][y] = true;
 		
 		for(int i=0; i<4; i++) {
-			ny = y + dy[i];
-			nx = x + dx[i];
+			int newx = x + dx[i];
+			int newy = y + dy[i];
 			
-			// 범위 체크
-			if(ny>=0 && nx>=0 && ny<n && nx<m) {
-				// 배추가 있고 방문 안한 곳
-				if(maps[ny][nx]==1 && !visited[ny][nx]) {
-					visited[ny][nx] = true;
-					dfs(ny, nx);
-				}				
-			}
+			if(newx < 0 || newx >= N || newy < 0 || newy >= M) continue;
+			if(arr[newx][newy] == 1 && !visited[newx][newy]) dfs(newx, newy);
 		}
+		
 	}
 
 }
