@@ -1,81 +1,60 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
- 
-public class Main {
-    static int[] dx = {-2,-1,2,1,2,1,-2,-1};
-    static int[] dy = {1,2,1,2,-1,-2,-1,-2};
-    static int[][] map;
-    static boolean[][] visited;
-    static int n;
-    static int start_x, start_y, end_x, end_y;
-    static int count = 0;
-    static Queue<dot> q = new LinkedList<dot>();
- 
-    public static void main(String[] args) throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    
-        int t = Integer.parseInt(br.readLine());
-        
-        for(int i=0; i<t; i++) {
-            n = Integer.parseInt(br.readLine());
-            map = new int[n][n];
-            visited = new boolean[n][n];
-            
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            start_x = Integer.parseInt(st.nextToken());
-            start_y = Integer.parseInt(st.nextToken());
-            
- 
-            st = new StringTokenizer(br.readLine());
-            end_x = Integer.parseInt(st.nextToken());
-            end_y = Integer.parseInt(st.nextToken());
-            
-            bfs(new dot(start_x, start_y));
-            System.out.println(map[end_x][end_y]);
-        }
-        
-    }
-    
-    static void bfs(dot d) {
-        q.clear();
-        visited[d.x][d.y] = true;
-        
-        q.add(d);
-        
-        loop: while(!q.isEmpty()) {
-            dot t = q.remove();
-            int x1 = t.x;
-            int y1 = t.y;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
- 
-            if(x1 == end_x && y1 == end_y) {
-                break loop;
-            }
-            
- 
-            for(int i=0; i<dx.length; i++) {
-                int x2 = x1 + dx[i];
-                int y2 = y1 + dy[i];
-                
-                if(x2>=0 && x2<n && y2>=0 && y2<n && !visited[x2][y2]) {
-                    q.add(new dot(x2,y2));
-                    visited[x2][y2] = true;
-                    map[x2][y2] = map[x1][y1] + 1;
-                }
-            }
-        }
-        
-    }
- 
-}
- 
-class dot {
-    int x;
-    int y;
-    
-    public dot(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+public class Main {
+
+	static int[] dx = {-2, -2, -1, -1, 1, 1, 2, 2};
+	static int[] dy = {-1, 1, -2, 2, -2, 2, -1, 1};
+	static int I, start_x, start_y, end_x, end_y;
+	static int[][] dist;
+	static Queue<Integer[]> queue;
+	
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int T =  Integer.parseInt(br.readLine());
+		
+		StringBuilder sb = new StringBuilder();
+		while(T-- > 0) {
+			I = Integer.parseInt(br.readLine());
+			dist = new int[I][I];
+
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			start_x = Integer.parseInt(st.nextToken());
+			start_y = Integer.parseInt(st.nextToken());
+			st = new StringTokenizer(br.readLine());
+			end_x = Integer.parseInt(st.nextToken());
+			end_y = Integer.parseInt(st.nextToken());
+			
+			queue = new LinkedList<Integer[]>();
+			queue.offer(new Integer[] {start_x, start_y});
+			dist[start_x][start_y] = 1;
+			
+			int ans = 0;
+			
+			while(!queue.isEmpty()) {
+				Integer[] temp = queue.poll();
+				int x = temp[0];
+				int y = temp[1];
+				
+				for(int i=0; i<8; i++) {
+					int newx = x + dx[i];
+					int newy = y + dy[i];
+					
+					if(newx < 0 || newx >= I || newy < 0 || newy >= I) continue;
+					if(dist[newx][newy] == 0) {
+						dist[newx][newy] = dist[x][y] + 1;
+						queue.offer(new Integer[] {newx, newy});
+					}
+				}
+			}
+			
+			sb.append(dist[end_x][end_y] - 1).append('\n');
+		}
+		System.out.println(sb);
+	}
+
 }
