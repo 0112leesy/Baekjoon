@@ -33,8 +33,6 @@ public class Main {
 			queue.offer(new Integer[] {start_x, start_y});
 			dist[start_x][start_y] = 1;
 			
-			int ans = 0;
-			
 			while(!queue.isEmpty()) {
 				Integer[] temp = queue.poll();
 				int x = temp[0];
