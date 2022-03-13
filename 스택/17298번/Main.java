@@ -46,7 +46,6 @@ public class Main {
 	 * num < top : top이 오큰수, num 푸시
 	 * num >= top : num < top이 될때까지 pop, top이 오큰수, num 푸시
 	 * 									-> 이때 temp가 비면 오큰수는 -1, num 푸시
-	 * 
 	 */
 
 }
