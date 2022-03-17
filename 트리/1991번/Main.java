@@ -85,10 +85,17 @@ public class Main {
 			char left = st.nextToken().charAt(0);
 			char right = st.nextToken().charAt(0);
 			
-			Node p = new Node(root);
-			
+			tree.createNode(root, left, right);
 			
 		}
+
+        tree.preorder(tree.root);
+        System.out.println();
+
+        tree.inorder(tree.root);
+        System.out.println();
+
+        tree.postorder(tree.root);
 	}
 
 }
