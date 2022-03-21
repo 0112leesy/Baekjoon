@@ -51,22 +51,22 @@ class Tree {
 	
 	// 전위순회 : 루트 -> 좌 -> 우 
 	public void preorder(Node root){
-		System.out.print(root.data); //먼저 가운데 출력
-		if(root.left!=null) preorder(root.left); //그 다음 왼쪽
-		if(root.right!=null) preorder(root.right); //마지막 오른쪽
+		System.out.print(root.data);
+		if(root.left!=null) preorder(root.left);
+        if(root.right!=null) preorder(root.right);
 	}
 	
 	// 중위순회 : 좌 -> 루트 -> 우
 	public void inorder(Node root){
-		if(root.left!=null) inorder(root.left); //왼쪽 먼저
-		System.out.print(root.data); //그 다음 중앙 출력
-		if(root.right!=null) inorder(root.right); //마지막으로 오른쪽
+		if(root.left!=null) inorder(root.left);
+		System.out.print(root.data);
+		if(root.right!=null) inorder(root.right);
 	}
 	
 	// 후위순회 : 좌 -> 우 -> 루트 
 	public void postorder(Node root){
-		if(root.left!=null) postorder(root.left); //왼쪽 먼저
-		if(root.right!=null) postorder(root.right); //그 다음 오른쪽
+		if(root.left!=null) postorder(root.left);
+		if(root.right!=null) postorder(root.right);
 		System.out.print(root.data);
 	}
 	
