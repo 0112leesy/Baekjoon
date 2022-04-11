@@ -21,7 +21,6 @@ public class Main {
 		tree.PostOrder(tree.root);
 	}
 	
-	
 }
 
 class Node {
@@ -67,19 +66,19 @@ class Tree{
 		}
 	}
 	
-	void PreOrder(Node root) {
+	void PreOrder(Node root) {// 전위순회
 		System.out.print(root.data);
 		if(root.left != null) PreOrder(root.left);
 		if(root.right != null) PreOrder(root.right);
 	}
 	
-	void InOrder(Node root) {
+	void InOrder(Node root) {// 중위순회
 		if(root.left != null) InOrder(root.left);
 		System.out.print(root.data);
 		if(root.right != null) InOrder(root.right);
 	}
 	
-	void PostOrder(Node root) {
+	void PostOrder(Node root) {// 후위순회
 		if(root.left != null) PostOrder(root.left);
 		if(root.right != null) PostOrder(root.right);
 		System.out.print(root.data);
