@@ -12,7 +12,7 @@ public class Main {
 	static ArrayList<ArrayList<Integer>> graph;
 	static PriorityQueue<Integer> pq;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException { // 난이도를 고려하기 위해 우선순위큐를 활용하여 풀이함
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
