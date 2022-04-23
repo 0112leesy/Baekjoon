@@ -37,8 +37,7 @@ public class Main {
 			
 			sb.append(cnt-1).append('\n');
 		}
-		System.out.println(sb);
-		
+		System.out.println(sb);	
 	}
 	
 	static void dfs(int x) {
