@@ -79,7 +79,6 @@ public class Main { // 진실을 아는 사람들과 연결된 사람들은 진�
 		}
 		System.out.println(cnt);
 		
-		
 	}
 
 }
