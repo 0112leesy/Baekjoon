@@ -21,5 +21,4 @@ public class Main {
 		if(t == 2) return 2;
 		else return dp[t] = (dp(t-1) + dp(t-2)) % 10007;
 	}
-
 }
