@@ -1,14 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Comparator;
-import java.util.LinkedList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Main { // 시간초과
-	static int[] dp;
+public class Main {
 
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
@@ -16,40 +14,57 @@ public class Main { // 시간초과
 		int T = Integer.parseInt(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		while(T-- > 0) {
-			PriorityQueue<Integer> pq_min = new PriorityQueue<>();
-			PriorityQueue<Integer> pq_max = new PriorityQueue<>(Comparator.reverseOrder());
+			HashMap<Integer, Integer> hmap = new HashMap<>();
+			PriorityQueue<Integer> min_queue = new PriorityQueue<>();
+			PriorityQueue<Integer> max_queue = new PriorityQueue<>(Collections.reverseOrder());
 			int K = Integer.parseInt(br.readLine());
 			for(int i=0; i<K; i++) {
 				StringTokenizer st = new StringTokenizer(br.readLine());
-				char com = st.nextToken().charAt(0);
+				int com = st.nextToken().charAt(0);
 				int num = Integer.parseInt(st.nextToken());
 				
 				if(com == 'I') {
-					pq_max.offer(num);
-					pq_min.offer(num);
+					hmap.put(num, hmap.getOrDefault(num, 0)+1);
+					
+					min_queue.offer(num);
+					max_queue.offer(num);
 				}
 				else if(com == 'D') {
-					if(pq_max.isEmpty() || pq_min.isEmpty()) {
-						pq_max.clear();
-						pq_min.clear();
-					}
+					if(hmap.size()==0) continue;
 					else {
-						if(num == 1) {
-							int target = pq_max.poll();
-							pq_min.remove(target);
+						if(num == -1) {
+							D(hmap, min_queue);
 						}
-						else if(num == -1) {
-							int target = pq_min.poll();
-							pq_max.remove(target);
+						if(num == 1) {
+							D(hmap, max_queue);
 						}
 					}
 				}
 			}
-			if(pq_max.isEmpty() || pq_min.isEmpty()) sb.append("EMPTY\n");
-			else sb.append(pq_max.peek()+" "+pq_min.peek()+"\n");
+			if(hmap.size() == 0) sb.append("EMPTY\n");
+			else{
+				int max_num = D(hmap, max_queue);
+				sb.append(max_num+" ");
+				if(hmap.size()==0) sb.append(max_num+'\n');
+				else sb.append(D(hmap, min_queue)+'\n');
+			}
+			
 		}
 		System.out.println(sb);
 		
+	}
+	
+	static int D(HashMap<Integer, Integer> map, PriorityQueue<Integer> pq) {
+		int target = 0;
+		while(true) {
+			target = pq.poll();
+			int cnt = map.getOrDefault(target, 0);
+			if(cnt == 0) continue;
+			if(cnt == 1) map.remove(target);
+			else map.put(target, cnt-1);
+			break;
+		}
+		return target;
 	}
 	
 
