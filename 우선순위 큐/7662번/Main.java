@@ -3,10 +3,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class Main {
+public class Main { // HashMap 대신 TreeMap 사용 가능
+	
+	static Map<Integer, Integer> hmap;
 
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
@@ -14,58 +17,51 @@ public class Main {
 		int T = Integer.parseInt(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		while(T-- > 0) {
-			HashMap<Integer, Integer> hmap = new HashMap<>();
+			hmap = new HashMap<>();
 			PriorityQueue<Integer> min_queue = new PriorityQueue<>();
 			PriorityQueue<Integer> max_queue = new PriorityQueue<>(Collections.reverseOrder());
 			int K = Integer.parseInt(br.readLine());
 			for(int i=0; i<K; i++) {
 				StringTokenizer st = new StringTokenizer(br.readLine());
-				int com = st.nextToken().charAt(0);
+				String com = st.nextToken();
 				int num = Integer.parseInt(st.nextToken());
 				
-				if(com == 'I') {
+				if(com.equals("I")) {
 					hmap.put(num, hmap.getOrDefault(num, 0)+1);
 					
-					min_queue.offer(num);
-					max_queue.offer(num);
+					min_queue.add(num);
+					max_queue.add(num);
 				}
-				else if(com == 'D') {
+				else{
 					if(hmap.size()==0) continue;
-					else {
-						if(num == -1) {
-							D(hmap, min_queue);
-						}
-						if(num == 1) {
-							D(hmap, max_queue);
-						}
-					}
+					if(num == 1) delete(max_queue);
+					else delete(min_queue);
 				}
 			}
 			if(hmap.size() == 0) sb.append("EMPTY\n");
 			else{
-				int max_num = D(hmap, max_queue);
-				sb.append(max_num+" ");
-				if(hmap.size()==0) sb.append(max_num+'\n');
-				else sb.append(D(hmap, min_queue)+'\n');
+				int res = delete(max_queue);
+				sb.append(res+" ");
+				if(hmap.size()>0) res = delete(min_queue);
+				sb.append(res+"\n");
 			}
 			
 		}
-		System.out.println(sb);
+		System.out.println(sb.toString());
 		
 	}
 	
-	static int D(HashMap<Integer, Integer> map, PriorityQueue<Integer> pq) {
+	static int delete(PriorityQueue<Integer> pq) {
 		int target = 0;
 		while(true) {
 			target = pq.poll();
-			int cnt = map.getOrDefault(target, 0);
+			int cnt = hmap.getOrDefault(target, 0);
 			if(cnt == 0) continue;
-			if(cnt == 1) map.remove(target);
-			else map.put(target, cnt-1);
+			if(cnt == 1) hmap.remove(target);
+			else hmap.put(target, cnt-1);
 			break;
 		}
 		return target;
 	}
-	
 
 }
