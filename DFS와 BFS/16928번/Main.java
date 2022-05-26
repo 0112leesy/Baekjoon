@@ -62,7 +62,6 @@ public class Main {
 				}
 			}
 		}
-		
 		System.out.println(visited[100]-1);
 	}
 
