@@ -49,5 +49,4 @@ public class Main {
 		System.out.println(cycle.size()>0?cycle.get(0):-1);
 		
 	}
-
 }
