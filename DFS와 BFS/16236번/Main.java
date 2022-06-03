@@ -100,5 +100,4 @@ public class Main {// 다시 풀어보기 -> 초기화 + bfs 코드 함수화 �
 		}
 		System.out.println(total_time);
 	}
-
 }
