@@ -99,5 +99,6 @@ public class Main {// 다시 풀어보기 -> 초기화 + bfs 코드 함수화 �
 			queue.offer(new Integer[] {targetx,targety});
 		}
 		System.out.println(total_time);
+		// 초기화 조건 수정 필요
 	}
 }
