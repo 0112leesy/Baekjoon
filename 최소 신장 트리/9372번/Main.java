@@ -34,7 +34,6 @@ public class Main {
 			visited = new boolean[N+1];
 			cnt = 0;
 			dfs(1);
-
 			sb.append(cnt-1).append('\n');
 		}
 		System.out.println(sb);	
