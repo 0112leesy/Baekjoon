@@ -83,4 +83,5 @@ class Tree{
 		if(root.right != null) PostOrder(root.right);
 		System.out.print(root.data);
 	}
+	
 }
