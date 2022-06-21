@@ -31,7 +31,6 @@ public class Main {
 		for(int i=0; i<=V; i++) {
 			dist[i] = Integer.MAX_VALUE;
 		}
-		//boolean[] visited = new boolean[V + 1];
 		
 		PriorityQueue<Integer[]> pq = new PriorityQueue<>(new Comparator<Integer[]>() {
 
@@ -48,9 +47,6 @@ public class Main {
 		while(!pq.isEmpty()) {
 			Integer[] temp = pq.poll();
 			int index = temp[0];
-			
-			//if(visited[index]) continue;
-			//visited[index] = true;
 			
 			for(Integer[] x : graph.get(index)) {
 				if(dist[x[0]] > dist[index] + x[1]) {
