@@ -56,7 +56,6 @@ public class Main {
 				}
 			}
 		}
-		
 		if(neg_cycle) System.out.println(-1);
 		else {
 			StringBuilder sb = new StringBuilder();
