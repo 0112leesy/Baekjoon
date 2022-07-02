@@ -47,6 +47,5 @@ public class Main {
 
 		Collections.sort(cycle);
 		System.out.println(cycle.size()>0?cycle.get(0):-1);
-		
 	}
 }
