@@ -12,7 +12,6 @@ public class Main {
 	 * 2. find 연산 값이 다르면 union 해줌
 	 */
 	static int[] parent;
-
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
