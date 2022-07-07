@@ -37,7 +37,6 @@ public class Main {
 	static boolean BinarySearch(int x) {
 		int l = 0;
 		int r = N-1;
-		
 		while(l <= r) {
 			int mid = (l+r)/2;
 			if(x == arr.get(mid)) return true;
