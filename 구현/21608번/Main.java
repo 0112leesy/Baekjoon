@@ -65,6 +65,7 @@ public class Main {
 			} // 구해진 좌표에 배정
 			map[get_x][get_y] = self;
 		}
+        
 		// 만족도 계산
 		for(int i=0; i<N; i++) {
 			for(int j=0; j<N; j++) {
