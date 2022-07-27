@@ -24,7 +24,6 @@ public class Main {
 			// a, b사이의 구간합은 array[b]-array[a-1]과 같다
 			System.out.println(array[b]-array[a-1]);
 		}
-		
 	}
 
 }
