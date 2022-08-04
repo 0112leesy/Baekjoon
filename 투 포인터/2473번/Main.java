@@ -44,7 +44,6 @@ public class Main {
 					l++;
 				}
 			}
-			
 		}
 		System.out.println(liq1+" "+liq2+" "+liq3);
 	}
