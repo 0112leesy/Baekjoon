@@ -17,7 +17,6 @@ public class Main {
 			
 			tree.add(Integer.parseInt(n));
 		}
-		
 		postOrder(0, tree.size()-1);
 	}
 	public static void postOrder(int idx, int end) {
