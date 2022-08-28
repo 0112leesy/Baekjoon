@@ -20,7 +20,6 @@ class Node implements Comparable<Node> {
     public int compareTo(Node o) {
         return weight - o.weight;
     }
- 
 }
  
 public class Main {
