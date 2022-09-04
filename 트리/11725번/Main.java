@@ -10,7 +10,6 @@ public class Main {
     static int[] parents;
     static boolean[] check;
 
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
