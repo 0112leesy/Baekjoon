@@ -28,7 +28,6 @@ public class Main {
     static int[] dist; // 시작점에서 각 정점으로 가는 최단거리.
     static boolean[] check; // 방문 확인.
     static final int INF = 200000000;
- 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
