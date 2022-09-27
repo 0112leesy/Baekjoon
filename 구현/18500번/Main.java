@@ -157,5 +157,6 @@ public class Main {
 		for(int i=0; i<falling_minerals.size(); i++) {
 			cave[falling_minerals.get(i)[0]][falling_minerals.get(i)[1]] = 'x';
 		}
+		
 	}
 }
