@@ -86,7 +86,6 @@ public class Main {
 		}
 		
 		return ans;
-		
 	}
 	
 	static class Node{
@@ -101,7 +100,6 @@ public class Main {
 		
 		@Override
 		public boolean equals(Object obj) { // contains() 함수 내부에서 equals() 함수를 사용하므로 오버라이딩 필요
-			// TODO Auto-generated method stub
 			Node node = (Node) obj;
 			return x == node.x && y == node.y;
 		}
