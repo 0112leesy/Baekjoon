@@ -12,6 +12,7 @@ public class Main {
 	static ArrayList<Node>[] list;
 	static boolean visited[];
 	
+	// 트리의 지름 찾기
 	// 1. 임의의 정점에서 가장 먼 노드(node)를 찾음
 	// 2. node에서 가장 먼 노드까지의 거리가 트리의 지름
 	// 즉 가장 먼 노드를 찾는 DFS를 두번 수행하면 됨 O(N)
