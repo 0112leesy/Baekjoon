@@ -1,43 +1,38 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	// 코드 수정 필요
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
-
+		int A = Integer.parseInt(st.nextToken());
+		int B = Integer.parseInt(st.nextToken());
+		
 		int cnt = 1;
-		while(M != N) {
-			System.out.println(M);
-			if(M % 2 != 0 && M % 10 != 1) {
-				break;
-			}
+		
+		while(B != A) {
+			// System.out.println(B);
 			
-			if(M % 2 == 0) {
-				M /= 2;
-				cnt++;
+			if(B % 10 == 1 && B / 10 > 0) {
+				B /= 10;
+				cnt += 1;
+				continue;
 			}
-			else if(M % 10 == 1) {
-				M /= 10;
-				cnt++;
+			else if(B % 2 == 0 && B / 2 > 0) {
+				B /= 2;
+				cnt += 1;
+				continue;
 			}
-			else if (M < N) {
+			else {
 				break;
 			}
 		}
 		
-		if(cnt == 1) cnt = -1;
+		if(B != A) cnt = -1;
 		System.out.println(cnt);
 	}
 }
