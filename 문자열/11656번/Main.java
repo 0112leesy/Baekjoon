@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.StringTokenizer;
 
 public class Main {
 
@@ -13,13 +11,13 @@ public class Main {
         String string = bufferedReader.readLine();
 
         ArrayList<String> list = new ArrayList<>();
-        for(int i=0; i<string.length(); i++) {
+        for (int i = 0; i < string.length(); i++) {
             list.add(string.substring(i, string.length()));
         }
         Collections.sort(list);
 
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0; i<list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             stringBuilder.append(list.get(i)).append('\n');
         }
 
