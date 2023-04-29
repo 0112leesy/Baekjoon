@@ -1,75 +1,91 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
 
-    static int[] count = new int[26];
-    static int[] select = new int[26];
-    static int N;
-    static ArrayList<Book> books;
-    static int minTotalPrice;
-
+    static int N, M;
+    static int[][] amounts;
+    static int[][][] dp;
 
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String word = bufferedReader.readLine();
-        for(int i=0; i<word.length(); i++) {
-            count[word.charAt(i) - 'A']++;
+        StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+
+        N = Integer.parseInt(stringTokenizer.nextToken());
+        M = Integer.parseInt(stringTokenizer.nextToken());
+        amounts = new int[N][M];
+
+        for (int i = 0; i < N; i++) {
+            stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+            for (int j = 0; j < M; j++) {
+                amounts[i][j] = Integer.parseInt(stringTokenizer.nextToken());
+            }
         }
 
-        N = Integer.parseInt(bufferedReader.readLine());
-        books = new ArrayList<>();
+        // 초기화
+        dp = new int[3][N][M];
+        for(int i=0; i<M; i++) {
+            dp[0][0][i] = amounts[0][i];
+            dp[1][0][i] = amounts[0][i];
+            dp[2][0][i] = amounts[0][i];
+        }
+
+        // 불가능한 경우
         for(int i=0; i<N; i++) {
-            StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-            int price = Integer.parseInt(stringTokenizer.nextToken());
-            String subject = stringTokenizer.nextToken();
-            books.add(new Book(price, subject));
+            dp[0][i][0] = Integer.MAX_VALUE;
+            dp[2][i][M-1] = Integer.MAX_VALUE;
         }
 
-        minTotalPrice = Integer.MAX_VALUE;
-        dfs(0, 0);
-        System.out.println(minTotalPrice == Integer.MAX_VALUE? -1 : minTotalPrice);
+        runDp();
 
     }
+    /*
+    direction
+        0  :   오른쪽
+        1   :   중앙
+        2   :   왼쪽
+     */
 
-    static class Book {
-        private int price;
-        private String subject;
-
-        Book(int price, String subject) {
-            this.price = price;
-            this.subject = subject;
-        }
-    }
-
-    static void dfs(int depth, int totalPrice) {
-        if(depth == N) {
-            if(completed()) {
-                minTotalPrice = Math.min(minTotalPrice, totalPrice);
+    static void runDp() {
+        for(int i=1; i<N; i++) {
+            for(int j=0; j<M; j++) {
+                // 왼쪽, 오른쪽 모두에서 올 수 있는 경우
+                if(isValid(j-1) && isValid(j+1)) {
+                    dp[0][i][j] = Math.min(dp[1][i-1][j-1], dp[2][i-1][j-1]) + amounts[i][j];
+                    dp[1][i][j] = Math.min(dp[0][i-1][j], dp[2][i-1][j]) + amounts[i][j];
+                    dp[2][i][j] = Math.min(dp[0][i-1][j+1], dp[1][i-1][j+1]) + amounts[i][j];
+                }
+                // 오른쪽 끝에 있는 경우
+                else if(isValid(j-1) && isValid(j+1)) {
+                    dp[1][i][j] = Math.min(dp[0][i-1][j], dp[2][i-1][j]) + amounts[i][j];
+                    dp[2][i][j] = Math.min(dp[0][i-1][j+1], dp[1][i-1][j+1]) + amounts[i][j];
+                }
+                // 왼쪽 끝에 있는 경우
+                else if(isValid(j-1) && isValid(j+1)) {
+                    dp[0][i][j] = Math.min(dp[1][i-1][j-1], dp[2][i-1][j-1]) + amounts[i][j];
+                    dp[1][i][j] = Math.min(dp[0][i-1][j], dp[2][i-1][j]) + amounts[i][j];
+                }
             }
-            return;
         }
-        // depth 번째 책을 선택
-        for(int i=0; i<books.get(depth).subject.length(); i++) {
-            select[books.get(depth).subject.charAt(i) - 'A']++;
-        }
-        dfs(depth+1, totalPrice + books.get(depth).price);
 
-        // depth 번째 책을 선택 X
-        for(int i=0; i<books.get(depth).subject.length(); i++) { // 백트래킹
-            select[books.get(depth).subject.charAt(i) - 'A']--;
+        int min = Integer.MAX_VALUE;
+
+        for(int i=0; i<M; i++) {
+            for(int j=0; j<3; j++) {
+                min = Math.min(min, dp[j][N-1][i]);
+            }
         }
-        dfs(depth+1, totalPrice);
+
+        System.out.println(min);
+
     }
 
-    static boolean completed() {
-        for(int i=0; i<26; i++) {
-            if(count[i] > select[i]) {
-                return false;
-            }
+    static boolean isValid(int index) {
+        if(index < 0 || index >= M) {
+            return false;
         }
         return true;
     }
